@@ -1,10 +1,20 @@
 import requests
-from datetime import datetime, timedelta
-import json
+from datetime import datetime
 from typing import List, Dict, Optional
 
 
 def get_unoccupied_rooms(school_name: str, time: Optional[datetime] = None) -> List[Dict]:
+    """
+    Retrieves a list of unoccupied rooms in a school at a given time.
+
+    Args:
+        school_name (str): The name of the school.
+        time (Optional[datetime], optional): The time to check for unoccupied rooms. Defaults to None.
+
+    Returns:
+        List[Dict]: A list of dictionaries containing the name of the unoccupied room and the time until it is occupied.
+    """
+    
     if time is None:
         time = datetime.now()
         
