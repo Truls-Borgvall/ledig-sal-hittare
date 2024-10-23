@@ -134,4 +134,7 @@ def get_unoccupied_rooms(school_name: str, time: Optional[datetime] = None) -> L
             pass
     return unoccupied_rooms
 
-print(get_unoccupied_rooms("NTI Johanneberg"))
+if __name__ == "__main__":
+    # Call the function and print the result so Ruby can capture it
+    import json
+    print(json.dumps(get_unoccupied_rooms("NTI Johanneberg")))
