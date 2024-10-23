@@ -1,8 +1,8 @@
 require 'slim'
 require 'sinatra'
 require 'sinatra/reloader'
-require 'pycall/import'
-include PyCall::Import
+require 'pycall/import' #Det här behövs inte
+include PyCall::Import #Det här behövs inte
 require 'json'
 
 # pyimport :get_unoccupied_rooms_test

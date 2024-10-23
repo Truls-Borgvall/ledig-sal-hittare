@@ -138,3 +138,6 @@ if __name__ == "__main__":
     # Call the function and print the result so Ruby can capture it
     import json
     print(json.dumps(get_unoccupied_rooms("NTI Johanneberg")))
+    
+    
+datetime_str = f"{datetime.now}"
