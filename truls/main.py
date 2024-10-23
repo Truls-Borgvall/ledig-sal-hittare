@@ -1,8 +1,16 @@
 import requests
 from datetime import datetime, timedelta
 import json
+from typing import List, Dict, Optional
 
-def get_unoccupied_rooms():
+
+def get_unoccupied_rooms(school_name: str, time: Optional[datetime] = None) -> List[Dict]:
+    if time is None:
+        time = datetime.now()
+        
+    current_day = time.weekday() +1
+    current_week = time.isocalendar()[1]
+    
     unoccupied_rooms = []
     session = requests.Session()
     
@@ -40,12 +48,11 @@ def get_unoccupied_rooms():
     }
     response = session.post('https://web.skola24.se/api/services/skola24/get/timetable/viewer/units', headers=headers, json=json_data)
     data = response.json()
-    nti_johanneberg_guid = next(unit['unitGuid'] for unit in data['data']['getTimetableViewerUnitsResponse']['units'] if unit['unitId'] == 'NTI Johanneberg')
-    #nti guid = MzMzODU1NjAtZGYyZS1mM2U2LTgzY2MtNDA0NGFjMmZjZjUw
+    school_name_guid = next(unit['unitGuid'] for unit in data['data']['getTimetableViewerUnitsResponse']['units'] if unit['unitId'] == school_name)
 
     json_data = {
         'hostName': 'it-gymnasiet.skola24.se',
-        'unitGuid': nti_johanneberg_guid,
+        'unitGuid': school_name_guid,
         'filters': {
             'class': False,
             'course': False,
@@ -67,13 +74,13 @@ def get_unoccupied_rooms():
         key = data['data']['key']
 
         json_data = {
-            'renderKey': key,#'8Cwray_A1HVYgPUAhD7_SM5ZXClAiEAmn8WBBqYXq1QX-NebheYJzqFcBrSssuB9ZIvnPfV-xFpHsHnaJhLzMlMUEenq5vLgWFjatgmGcAkP5GvOlO635mSG4Z6iA0kG'
+            'renderKey': key,
             'host': 'it-gymnasiet.skola24.se',
-            'unitGuid': nti_johanneberg_guid,
+            'unitGuid': school_name_guid,
             'schoolYear': year_guid,
             'startDate': None,
             'endDate': None,
-            'scheduleDay': 0,
+            'scheduleDay': current_day,
             'blackAndWhite': False,
             'width': 1206,
             'height': 550,
@@ -81,7 +88,7 @@ def get_unoccupied_rooms():
             'selection': room["eid"],
             'showHeader': False,
             'periodText': '',
-            'week': 37,
+            'week': current_week,
             'year': 2024,
             'privateFreeTextMode': None,
             'privateSelectionMode': False,
@@ -91,30 +98,25 @@ def get_unoccupied_rooms():
         data = response.json()
         schedule_data = data["data"]["lessonInfo"]
         
-        date_time = datetime.now()  # Default to current time
-
-        current_day = date_time.weekday() + 1  # Get day of the week (1=Monday, 7=Sunday)
-        current_time = date_time.time()        # Get the current time
+        clock_time = time.time()
 
         occupied = False
         unoccupied_until = None
         try:
             for entry in schedule_data:
-                if entry['dayOfWeekNumber'] == current_day:
-                    
-                    start_time = datetime.strptime(entry['timeStart'], '%H:%M:%S').time()
-                    end_time = datetime.strptime(entry['timeEnd'], '%H:%M:%S').time()
+                start_time = datetime.strptime(entry['timeStart'], '%H:%M:%S').time()
+                end_time = datetime.strptime(entry['timeEnd'], '%H:%M:%S').time()
 
-                    if start_time <= current_time <= end_time:
-                        occupied = True
-                        break
-                    elif current_time < start_time and (unoccupied_until is None or start_time < unoccupied_until):
-                        unoccupied_until = start_time
+                if start_time <= clock_time <= end_time:
+                    occupied = True
+                    break
+                elif clock_time < start_time and (unoccupied_until is None or start_time < unoccupied_until):
+                    unoccupied_until = start_time
 
 
             if not occupied:
                 if unoccupied_until:
-                    time_until_next_occupation = datetime.combine(date_time.date(), unoccupied_until) - date_time
+                    time_until_next_occupation = datetime.combine(time.date(), unoccupied_until) - time
                     unoccupied_rooms.append({"name": room["name"], "unoccupied_until": unoccupied_until.strftime('%H:%M')})
                 else:
                     unoccupied_rooms.append({"name": room["name"], "unoccupied_until": "24:00"})
@@ -124,4 +126,4 @@ def get_unoccupied_rooms():
             print("schedule_data", schedule_data)
     return unoccupied_rooms
 
-print(get_unoccupied_rooms())
+print(get_unoccupied_rooms("NTI Johanneberg"))
