@@ -2,11 +2,16 @@ require 'httparty'
 require 'date'
 require 'json'
 
+# Get unoccupied rooms for a given school and time
+#
+# @param school_name [String] The name of the school
+# @param time [DateTime] The time to check for unoccupied rooms (optional, defaults to current time)
+# @return [Array<Hash>] An array of unoccupied rooms with their names and unoccupied_until times
 def get_unoccupied_rooms(school_name, time = nil)
   # Set time to current time if not provided
   time ||= DateTime.now
 
-  # Adjust weekday to match Python's weekday (Monday=1, Sunday=7)
+  # Adjust weekday to match Skola24's weekday (Monday=1, Sunday=7)
   current_day = (time.wday + 6) % 7 + 1
   current_week = time.cweek
 
