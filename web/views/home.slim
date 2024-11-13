@@ -1,0 +1,11 @@
+
+head
+    title Room Viewer
+
+h1 Find Available Rooms
+form action="/rooms" method="post"
+    label for="school" School:
+    input type="text" name="school" required=true
+    label for="datetime" Date and Time:
+    input type="datetime-local" name="datetime" required=true
+    input type="submit" value="Show rooms"
