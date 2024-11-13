@@ -1,12 +1,11 @@
+require "sinatra"
+require "sinatra/reloader"
 require 'httparty'
 require 'date'
 require 'json'
 
-# Get unoccupied rooms for a given school and time
-#
-# @param school_name [String] The name of the school
-# @param time [DateTime] The time to check for unoccupied rooms (optional, defaults to current time)
-# @return [Array<Hash>] An array of unoccupied rooms with their names and unoccupied_until times
+enable :sessions
+
 def get_unoccupied_rooms(school_name, time = nil)
   # Set time to current time if not provided
   time ||= DateTime.now
@@ -56,10 +55,7 @@ def get_unoccupied_rooms(school_name, time = nil)
   data = JSON.parse(response.body)
   units = data['data']['getTimetableViewerUnitsResponse']['units']
   school_unit = units.find { |unit| unit['unitId'] == school_name }
-  if !school_unit
-    raise "Invalid school name"
-  end
-  school_name_guid = school_unit['unitGuid']
+  school_name_guid = school_unit['unitGuid'] if school_unit
 
   # Get timetable selection
   json_data = {
@@ -144,5 +140,20 @@ def get_unoccupied_rooms(school_name, time = nil)
   return unoccupied_rooms
 end
 
+get("/") do
+    erb :get_unoccupied_rooms
+end
 
-puts(get_unoccupied_rooms("NTI Helsingborg", DateTime.now))
+post("/get_unoccupied_rooms") do
+    school_name = params[:school_name]
+    time = params[:time]
+    unoccupied_rooms = get_unoccupied_rooms(school_name, time)
+
+    session[:unoccupied_rooms] = unoccupied_rooms
+    redirect to("/unoccupied_rooms")
+end
+
+get("/unoccupied_rooms") do
+    unoccupied_rooms = session[:unoccupied_rooms]
+    erb :display_unoccupied_rooms, locals: {unoccupied_rooms: unoccupied_rooms}
+end

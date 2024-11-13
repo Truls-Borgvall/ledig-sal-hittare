@@ -1,0 +1,8 @@
+<% unoccupied_rooms.each do |room| %>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><%= room["name"] %></h5>
+            <p class="card-text">Unoccupied until <%= room["unoccupied_until"] %></p>
+        </div>
+    </div>
+<% end %>
