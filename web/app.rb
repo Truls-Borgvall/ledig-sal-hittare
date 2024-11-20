@@ -5,6 +5,8 @@ require 'json'
 require 'httparty'
 require 'date'
 
+enable :sessions
+
 current_time = Time.now
 puts current_time
 
@@ -25,14 +27,19 @@ post('/rooms') do
   # Format the parsed time to match Time.now format
   formatted_time = parsed_time.strftime("%Y-%m-%d %H:%M:%S")
 
-  puts formatted_time
-  redirect "/unoccupied_rooms/#{school}/#{formatted_time}"
+  session[:school] = school
+  session[:formatted_time] = formatted_time
+
+  redirect("/unoccupied_rooms")
 end
 
-get('/unoccupied_rooms/:school_name/:formatted_time') do
-  @school_name = params[:school_name]
-  @unoccupied_rooms = get_unoccupied_rooms(@school_name, params[:formatted_time])
-  puts @unoccupied_rooms
+get('/unoccupied_rooms') do
+  school_name = session[:school]
+  formatted_time = session[:formatted_time]
+  puts("school_name: ", school_name)
+  puts("formatted_time: ", formatted_time)
+  #@unoccupied_rooms = get_unoccupied_rooms(school_name, formatted_time)
+  #puts @unoccupied_rooms
   slim :unoccupied_rooms
 end
 
