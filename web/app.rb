@@ -8,15 +8,15 @@ require 'date'
 current_time = Time.now
 puts current_time
 
-get ('/viewer') do
+get('/viewer') do
   slim :home
 end
 
-get ('/') do
+get('/') do
   slim :home
 end
 
-post ('/rooms') do
+post('/rooms') do
   school = params[:school]
   datetime = params[:datetime]
 
@@ -29,7 +29,7 @@ post ('/rooms') do
   redirect "/unoccupied_rooms/#{school}/#{formatted_time}"
 end
 
-get ('/unoccupied_rooms/:school_name/:formatted_time') do
+get('/unoccupied_rooms/:school_name/:formatted_time') do
   @school_name = params[:school_name]
   @unoccupied_rooms = get_unoccupied_rooms(@school_name, params[:formatted_time])
   puts @unoccupied_rooms
