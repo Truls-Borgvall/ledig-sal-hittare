@@ -27,6 +27,8 @@ post('/rooms') do
   # Format the parsed time to match Time.now format
   formatted_time = parsed_time.strftime("%Y-%m-%d %H:%M:%S")
 
+  
+
   session[:school] = school
   session[:formatted_time] = formatted_time
 
