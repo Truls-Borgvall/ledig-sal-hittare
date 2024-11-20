@@ -5,10 +5,6 @@ require 'json'
 require 'httparty'
 require 'date'
 
-# pyimport :get_unoccupied_rooms_test
-
-# data = get_unoccupied_rooms_test.get_unoccupied_rooms
-
 current_time = Time.now
 puts current_time
 
