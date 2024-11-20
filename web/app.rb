@@ -15,6 +15,7 @@ get('/viewer') do
 end
 
 get('/') do
+  @current_time = Time.now.strftime('%Y-%m-%dT%H:%M')
   slim :home
 end
 
