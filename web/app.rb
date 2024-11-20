@@ -38,8 +38,8 @@ get('/unoccupied_rooms') do
   formatted_time = session[:formatted_time]
   puts("school_name: ", school_name)
   puts("formatted_time: ", formatted_time)
-  #@unoccupied_rooms = get_unoccupied_rooms(school_name, formatted_time)
-  #puts @unoccupied_rooms
+  @unoccupied_rooms = get_unoccupied_rooms(school_name, formatted_time)
+  puts @unoccupied_rooms
   slim :unoccupied_rooms
 end
 
@@ -50,6 +50,8 @@ end
 # @param time [DateTime] The time to check for unoccupied rooms (optional, defaults to current time)
 # @return [Array<Hash>] An array of unoccupied rooms with their names and unoccupied_until times
 def get_unoccupied_rooms(school_name, time = nil)
+  time = DateTime.parse(time) if time.is_a?(String)
+  
   # Set time to current time if not provided
   time ||= DateTime.now
 
