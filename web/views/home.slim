@@ -1,11 +1,23 @@
+div#wrappermain
+      header
+        h1 Välkomen till vår salhittare
+      nav
+        a href="#" någon sida
+        a href="#" någon sida3
+        a href="#" någon sida2
+      section
+        h1 Find Available Rooms
+        form action="/rooms" method="post"
+            label for="school" School:
+            input type="text" name="school" required=true
+            label for="datetime" Date and Time:
+            input type="datetime-local" name="datetime" required=true value=@current_time
+            input type="submit" value="Show rooms"
+        - if session[:unoccupied_rooms]
+            div.u_box
+                - session[:unoccupied_rooms].each do |room|
+                    div.boxen
+                        h1 = room["name"]
+                        p = room["unoccupied_until"]
 
-head
-    title Room Viewer
-
-h1 Find Available Rooms
-form action="/rooms" method="post"
-    label for="school" School:
-    input type="text" name="school" required=true
-    label for="datetime" Date and Time:
-    input type="datetime-local" name="datetime" required=true value=@current_time
-    input type="submit" value="Show rooms"
+      footer This is it for us

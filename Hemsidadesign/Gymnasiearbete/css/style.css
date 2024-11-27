@@ -2,79 +2,70 @@ body {
     margin: 0px;
     overflow-x: hidden;
     font-family: 'Domine';
-    
 }
-@media screen and (min-width:768px){
 
-#wrappermain{
-    display: grid;
-    width: 100vw;
- height: 150vh;
-    display: grid;
-    grid-template-rows: 20fr 5fr 60fr 35fr;
-    grid-template-areas:
-            "hd"
-            "nv"
-            "st"
-            "ft";
+@media screen and (min-width:768px){
+    #wrappermain{
+        display: grid;
+        width: 100vw;
+        height: 150vh;
+        display: grid;
+        grid-template-rows: 20fr 5fr 60fr 35fr;
+        grid-template-areas:
+                "hd"
+                "nv"
+                "st"
+                "ft";
+        }
+
+    header{
+        grid-area: hd;
+        display: flex; 
+        justify-content: center;
+        background-color: black;
+        color: white
+    }
+
+    section {
+        grid-area: st;
+        background-color: rgb(74, 123, 139);
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        
+    }
+
+    nav{
+        grid-area: nv;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
     }
 
 
-Header{
-    grid-area: hd;
-    display: flex; 
-    justify-content: center;
-    background-color: black;
-    color: white
- }
- 
+    footer {
+        grid-area: ft;
+        background-color: rgb(2, 2, 43);
+    }
 
 
+    /* Div där funktionerna ska sitta. */
+    .u_box{
+        background-color: blueviolet;
+        height: 10vh;
+        width: 100vw;
+        display: flex;
+        justify-content: space-around;
+    }
 
-section {
-    grid-area: st;
-    background-color: rgb(74, 123, 139);
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    
-}
-
-nav{
-    grid-area: nv;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-
-footer {
-    grid-area: ft;
-    background-color: rgb(2, 2, 43);
-}
-
-
-/* Div där funktionerna ska sitta. */
-.u_box{
-    background-color: blueviolet;
-    height: 10vh;
-    width: 100vw;
-    display: flex;
-    justify-content: space-around;
-    
-    
-    
-}
-
-.boxen{
-    width: 15vw ;
-    height: 100%;
-background-color: brown;
-}
+    .boxen{
+        width: 15vw ;
+        height: 100%;
+        background-color: brown;
+    }
 }
 
 @media screen and (max-width:768px) {
-
     /* kod för mobil */
     /* wrapper sida 1 */
     #wrappermain {

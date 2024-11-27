@@ -20,30 +20,17 @@ get('/') do
 end
 
 post('/rooms') do
-  school = params[:school]
+  school_name = params[:school]
   datetime = params[:datetime]
 
   parsed_time = Time.parse(datetime)
 
-  # Format the parsed time to match Time.now format
   formatted_time = parsed_time.strftime("%Y-%m-%d %H:%M:%S")
 
-  
+  unoccupied_rooms = get_unoccupied_rooms(school_name, formatted_time)
+  session[:unoccupied_rooms] = unoccupied_rooms
 
-  session[:school] = school
-  session[:formatted_time] = formatted_time
-
-  redirect("/unoccupied_rooms")
-end
-
-get('/unoccupied_rooms') do
-  school_name = session[:school]
-  formatted_time = session[:formatted_time]
-  puts("school_name: ", school_name)
-  puts("formatted_time: ", formatted_time)
-  @unoccupied_rooms = get_unoccupied_rooms(school_name, formatted_time)
-  puts @unoccupied_rooms
-  slim :unoccupied_rooms
+  redirect("/")
 end
 
 
@@ -187,6 +174,3 @@ def get_unoccupied_rooms(school_name, time = nil)
   end
   return unoccupied_rooms
 end
-
-
-# puts(get_unoccupied_rooms("NTI Johanneberg", DateTime.now))
