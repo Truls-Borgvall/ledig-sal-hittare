@@ -72,20 +72,22 @@ footer {
 
 
 /* Div där funktionerna ska sitta. */
-.u_box{
+.u_box {
     background-color: blueviolet;
     width: 80%;
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
+    justify-content: space-between; /* Ensures consistent spacing */
 }
 
-.boxen{
+.boxen {
     padding: 16px;
-    min-width: 250px;
-    flex-grow: 1;
+    width: calc(33.33% - 16px); /* Adjust to fit 3 per row, accounting for gap */
     background-color: brown;
+    box-sizing: border-box; /* Ensures padding is included in width calculation */
 }
+
 
 @media screen and (max-width:768px) {
     /* kod för mobil */
@@ -155,7 +157,7 @@ footer {
     }
 
     .boxen {
-        min-width: 0px;
+        width: 100%;
     }
 
 }
