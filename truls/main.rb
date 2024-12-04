@@ -145,4 +145,4 @@ def get_unoccupied_rooms(school_name, time = nil)
 end
 
 
-puts(get_unoccupied_rooms("NTI Helsingborg", DateTime.now))
+puts(get_unoccupied_rooms("NTI Johanneberg", DateTime.now))
