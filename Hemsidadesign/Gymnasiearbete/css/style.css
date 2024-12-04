@@ -10,7 +10,7 @@ body {
         width: 100vw;
         height: 150vh;
         display: grid;
-        grid-template-rows: 20fr 5fr 60fr 35fr;
+        grid-template-rows: 10fr 5fr 60fr 35fr;
         grid-template-areas:
                 "hd"
                 "nv"
@@ -28,7 +28,7 @@ body {
 
     section {
         grid-area: st;
-        background-color: rgb(74, 123, 139);
+        background-color: whitesmoke;
         display: flex;
         flex-direction: column;
         gap: 3px;
@@ -51,7 +51,7 @@ body {
 
     /* Div där funktionerna ska sitta. */
     .u_box{
-        background-color: blueviolet;
+        background-color: white;
         height: 10vh;
         width: 100vw;
         display: flex;
@@ -61,7 +61,7 @@ body {
     .boxen{
         width: 15vw ;
         height: 100%;
-        background-color: brown;
+        background-color: white;
     }
 }
 
