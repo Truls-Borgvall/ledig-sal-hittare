@@ -29,16 +29,15 @@ a{
     text-decoration: none;
     color: black;
 }
-
+@media screen and (min-width:768px){
 #wrappermain{
     display: grid;
     width: 100vw;
-    height: 130vh;
+    height: 10vh;
     display: grid;
-    grid-template-rows: 15fr 5fr 60fr 20fr;
+    grid-template-rows: 15fr 60fr 20fr;
     grid-template-areas:
             "hd"
-            "nv"
             "st"
             "ft";
     }
@@ -83,7 +82,7 @@ footer {
     flex-wrap: wrap;
     gap: 16px;
     justify-content: space-between; /* Ensures consistent spacing */
-    box-shadow: 10px 10px 10px 10px;
+    
 }
 
 .boxen {
@@ -91,9 +90,10 @@ footer {
     width: calc(33.33% - 16px); /* Adjust to fit 3 per row, accounting for gap */
     background-color: white;
     box-sizing: border-box; /* Ensures padding is included in width calculation */
+    box-shadow: 2px 1px 10px 3px;
+    background-color: rgb(214, 214, 214);
 }
-
-
+}
 @media screen and (max-width:768px) {
     /* kod för mobil */
     form {
@@ -116,20 +116,20 @@ footer {
     /* wrapper sida 1 */
     #wrappermain {
         width: 100vw;
-        height: 150vh;
+        height: 115vh;
         display: grid;
         grid-template-areas:
             "hd"
-            "nv"
             "st"
             "ft";
-        grid-template-rows: 0.3fr 0.1fr 2fr 1fr;
+        grid-template-rows: 0.3fr 1fr 0.2fr;
     }
     header {
         grid-area: hd;
         display: flex;
         justify-content: space-between;
         background-color: black;
+        color: whitesmoke
     }
 
     section {
@@ -159,10 +159,18 @@ footer {
         flex-direction: column;
         width: 80%;
         gap: 16px;
+        background-color: whitesmoke;
+        width: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: space-between; /* Ensures consistent spacing */
+       
     }
 
     .boxen {
         width: 100%;
+        box-shadow: 2px 2px 2px 2px;
+        background-color: rgb(214, 214, 214);
     }
-
 }

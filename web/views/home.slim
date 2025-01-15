@@ -1,23 +1,18 @@
 div#wrappermain
       header
         h1 Välkomen till vår salhittare
-      nav
-        a href="#" Någon sida
-        a href="#" Någon sida3
-        a href="#" Någon sida2
-  
 
       section
         .form-container
             form#roomForm action="/rooms" method="post"
                 .inputs-container
                     .input-container
-                        label for="school" School:
-                        input type="text" name="school" required=true
+                        label for="school" Skola:
+                        input type="text" name="School" required=true
                     .input-container
-                        label for="datetime" Date and Time:
+                        label for="datetime" Datum och Tid:
                         input type="datetime-local" name="datetime" required=true value=@current_time
-                input#submitButton type="submit" value="Show rooms"
+                input#submitButton type="submit" value="Visa salar"
         - if session[:unoccupied_rooms]
             div.u_box
                 - session[:unoccupied_rooms].each do |room|
@@ -25,4 +20,4 @@ div#wrappermain
                         h1 = room["name"]
                         p = "Ledig till: #{room["unoccupied_until"]}"
 
-      footer This is it for us
+      footer 
