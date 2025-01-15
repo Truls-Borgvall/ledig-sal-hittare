@@ -23,6 +23,6 @@ div#wrappermain
                 - session[:unoccupied_rooms].each do |room|
                     div.boxen
                         h1 = room["name"]
-                        p = room["unoccupied_until"]
+                        p = "Ledig till: #{room["unoccupied_until"]}"
 
       footer This is it for us
